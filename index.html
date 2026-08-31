@@ -3,79 +3,256 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Study Hub</title>
+  <title>Study Hub Quiz</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f1f6ff;
-      text-align: center;
+      background: #f2f6ff;
+      color: #172033;
     }
 
     header {
-      background: white;
-      padding: 20px;
-      font-size: 28px;
-      font-weight: bold;
-    }
-
-    .box {
-      padding: 60px 20px;
-    }
-
-    h1 {
-      font-size: 42px;
-      color: #172554;
-    }
-
-    p {
-      font-size: 20px;
-      color: #555;
-    }
-
-    button {
-      background: #1769e0;
+      background: #3157d5;
       color: white;
-      border: none;
-      padding: 16px 30px;
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+    }
+
+    .app {
+      max-width: 600px;
+      margin: 25px auto;
+      padding: 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .question {
+      font-size: 21px;
+      font-weight: bold;
+      line-height: 1.5;
+      margin: 20px 0;
+    }
+
+    .option {
+      width: 100%;
+      padding: 15px;
+      margin: 8px 0;
+      background: white;
+      border: 2px solid #dce2ee;
       border-radius: 10px;
-      font-size: 18px;
+      text-align: left;
+      font-size: 16px;
       cursor: pointer;
     }
 
-    button:hover {
-      background: #0d4fb5;
+    .option:hover {
+      border-color: #3157d5;
+      background: #f1f4ff;
+    }
+
+    .selected {
+      background: #dfe7ff;
+      border-color: #3157d5;
+    }
+
+    .next {
+      width: 100%;
+      padding: 15px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #3157d5;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .score {
+      text-align: center;
+      font-size: 45px;
+      color: #3157d5;
+      font-weight: bold;
+    }
+
+    .restart {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #3157d5;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    📚 Study Hub
-  </header>
+<header>
+  <h1>📚 Study Hub</h1>
+  <p>🧠 सामान्य ज्ञान Quiz</p>
+</header>
 
-  <div class="box">
+<div class="app">
+  <div class="card" id="quiz">
+    <p id="count"></p>
 
-    <h1>आपकी सफलता अच्छी तैयारी से शुरू होती है</h1>
+    <div class="question" id="question"></div>
 
-    <p>
-      सामान्य ज्ञान, Maths, Science और Competitive Exams
+    <div id="options"></div>
+
+    <button class="next" onclick="nextQuestion()">
+      अगला प्रश्न →
+    </button>
+  </div>
+</div>
+
+<script>
+
+const questions = [
+  {
+    question: "भारत की राजधानी क्या है?",
+    options: ["मुंबई", "नई दिल्ली", "कोलकाता", "चेन्नई"],
+    answer: 1
+  },
+  {
+    question: "भारत का राष्ट्रीय पशु कौन सा है?",
+    options: ["शेर", "हाथी", "बाघ", "हिरण"],
+    answer: 2
+  },
+  {
+    question: "भारत का राष्ट्रीय पक्षी कौन सा है?",
+    options: ["तोता", "मोर", "कबूतर", "गरुड़"],
+    answer: 1
+  },
+  {
+    question: "भारत का राष्ट्रीय फूल कौन सा है?",
+    options: ["गुलाब", "कमल", "सूरजमुखी", "चमेली"],
+    answer: 1
+  },
+  {
+    question: "भारत का संविधान कब लागू हुआ?",
+    options: [
+      "15 अगस्त 1947",
+      "26 जनवरी 1950",
+      "26 नवंबर 1949",
+      "2 अक्टूबर 1950"
+    ],
+    answer: 1
+  }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let selectedAnswer = null;
+
+function loadQuestion() {
+
+  selectedAnswer = null;
+
+  const q = questions[currentQuestion];
+
+  document.getElementById("count").innerText =
+    "प्रश्न " + (currentQuestion + 1) +
+    " / " + questions.length;
+
+  document.getElementById("question").innerText =
+    q.question;
+
+  const optionsBox = document.getElementById("options");
+
+  optionsBox.innerHTML = "";
+
+  q.options.forEach(function(option, index) {
+
+    const button = document.createElement("button");
+
+    button.className = "option";
+
+    button.innerText =
+      String.fromCharCode(65 + index) +
+      ". " + option;
+
+    button.onclick = function() {
+
+      document.querySelectorAll(".option")
+        .forEach(function(btn) {
+          btn.classList.remove("selected");
+        });
+
+      button.classList.add("selected");
+
+      selectedAnswer = index;
+    };
+
+    optionsBox.appendChild(button);
+  });
+}
+
+function nextQuestion() {
+
+  if (selectedAnswer === null) {
+    alert("पहले एक उत्तर चुनें।");
+    return;
+  }
+
+  if (selectedAnswer === questions[currentQuestion].answer) {
+    score++;
+  }
+
+  currentQuestion++;
+
+  if (currentQuestion < questions.length) {
+    loadQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+
+  document.getElementById("quiz").innerHTML = `
+    <h2 style="text-align:center;">🎉 Quiz Complete!</h2>
+
+    <p style="text-align:center;">
+      आपका Score
     </p>
 
-    <button onclick="startQuiz()">
-      🧠 Start Quiz
+    <div class="score">
+      ${score} / ${questions.length}
+    </div>
+
+    <p style="text-align:center;">
+      आपने ${questions.length} में से ${score} प्रश्न सही किए।
+    </p>
+
+    <button class="restart" onclick="location.reload()">
+      🔄 फिर से Quiz दें
     </button>
+  `;
+}
 
-  </div>
+loadQuestion();
 
-  <script>
-    function startQuiz() {
-      alert("Quiz जल्द शुरू होगा! 🎓");
-    }
-  </script>
+</script>
 
 </body>
 </html>
