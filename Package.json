@@ -1,0 +1,12 @@
+{
+  "name": "my-server",
+  "version": "1.0.0",
+  "description": "My first web server",
+  "main": "Server.js",
+  "scripts": {
+    "start": "node Server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
