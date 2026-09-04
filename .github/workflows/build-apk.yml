@@ -26,11 +26,11 @@ jobs:
         with:
           gradle-version: "8.7"
 
-      - name: Build APK
-        run: gradle -p android assembleDebug
+      - - name: Build AAB
+  run: gradle -p android bundleRelease
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: Study-Hub-Genius-Quiz-APK
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+- name: Upload AAB
+  uses: actions/upload-artifact@v4
+  with:
+    name: Study-Hub-Genius-Quiz-AAB
+    path: android/app/build/outputs/bundle/release/app-release.aab
