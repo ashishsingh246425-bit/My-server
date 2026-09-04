@@ -7,109 +7,158 @@
 
 <style>
 *{box-sizing:border-box}
+
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f3f6ff;
-  color:#172033
+margin:0;
+font-family:Arial,sans-serif;
+background:#f3f6ff;
+color:#172033
 }
+
 header{
-  background:#3157d5;
-  color:#fff;
-  text-align:center;
-  padding:24px 15px
+background:#3157d5;
+color:#fff;
+text-align:center;
+padding:24px 15px
 }
-header h1{margin:0;font-size:30px}
-.app{max-width:650px;margin:auto;padding:20px 15px}
+
+header h1{
+margin:0;
+font-size:30px
+}
+
+.app{
+max-width:650px;
+margin:auto;
+padding:20px 15px
+}
+
 .card{
-  background:#fff;
-  padding:24px;
-  border-radius:18px;
-  box-shadow:0 5px 20px rgba(0,0,0,.08)
+background:#fff;
+padding:24px;
+border-radius:18px;
+box-shadow:0 5px 20px rgba(0,0,0,.08)
 }
-.menu button,.next,.restart,.back{
-  width:100%;
-  padding:15px;
-  margin-top:12px;
-  border:0;
-  border-radius:10px;
-  background:#3157d5;
-  color:#fff;
-  font-size:17px;
-  font-weight:bold
+
+.menu button,
+.next,
+.restart,
+.back{
+width:100%;
+padding:15px;
+margin-top:12px;
+border:0;
+border-radius:10px;
+background:#3157d5;
+color:#fff;
+font-size:17px;
+font-weight:bold
 }
-.menu button:nth-child(2),.back{background:#172033}
+
+.menu button:nth-child(2),
+.back{
+background:#172033
+}
+
 .top{
-  display:flex;
-  justify-content:space-between;
-  font-weight:bold;
-  margin-bottom:12px
+display:flex;
+justify-content:space-between;
+font-weight:bold;
+margin-bottom:12px
 }
-.timer{color:#d22}
+
+.timer{
+color:#d22
+}
+
 .progress{
-  height:10px;
-  background:#e2e6ef;
-  border-radius:20px;
-  overflow:hidden
+height:10px;
+background:#e2e6ef;
+border-radius:20px;
+overflow:hidden
 }
+
 .bar{
-  height:100%;
-  background:#3157d5;
-  width:0
+height:100%;
+background:#3157d5;
+width:0
 }
+
 .question{
-  font-size:21px;
-  font-weight:bold;
-  line-height:1.5;
-  margin:22px 0
+font-size:21px;
+font-weight:bold;
+line-height:1.5;
+margin:22px 0
 }
+
 .word{
-  font-size:30px;
-  font-weight:bold;
-  text-align:center;
-  color:#3157d5;
-  margin:25px 0
+font-size:30px;
+font-weight:bold;
+text-align:center;
+color:#3157d5;
+margin:25px 0
 }
+
 .option{
-  width:100%;
-  padding:14px;
-  margin:8px 0;
-  border:2px solid #dce2ee;
-  background:#fff;
-  border-radius:10px;
-  text-align:left;
-  font-size:16px
+width:100%;
+padding:14px;
+margin:8px 0;
+border:2px solid #dce2ee;
+background:#fff;
+border-radius:10px;
+text-align:left;
+font-size:16px
 }
-.option:disabled{cursor:default}
+
+.option:disabled{
+cursor:default
+}
+
 .correct{
-  background:#d4edda!important;
-  border-color:#28a745!important
+background:#d4edda!important;
+border-color:#28a745!important
 }
+
 .wrong{
-  background:#f8d7da!important;
-  border-color:#dc3545!important
+background:#f8d7da!important;
+border-color:#dc3545!important
 }
+
 .feedback{
-  min-height:25px;
-  margin-top:12px;
-  font-weight:bold
+min-height:25px;
+margin-top:12px;
+font-weight:bold
 }
-.ok{color:#218838}
-.bad{color:#c82333}
-.result{text-align:center}
+
+.ok{
+color:#218838
+}
+
+.bad{
+color:#c82333
+}
+
+.result{
+text-align:center
+}
+
 .score{
-  font-size:50px;
-  color:#3157d5;
-  font-weight:bold
+font-size:50px;
+color:#3157d5;
+font-weight:bold
 }
+
 footer{
-  margin-top:30px;
-  padding:25px;
-  background:#172033;
-  color:#fff;
-  text-align:center
+margin-top:30px;
+padding:25px;
+background:#172033;
+color:#fff;
+text-align:center
 }
-.hidden{display:none}
+
+.hidden{
+display:none
+}
 </style>
 </head>
 
@@ -117,13 +166,15 @@ footer{
 
 <header>
 <h1>📚 Study Hub</h1>
-<p id="subtitle">Learn • Practice • Succeed</p>
+<p>Learn • Practice • Succeed</p>
 </header>
 
 <div class="app">
 
 <div class="card" id="home">
+
 <h2>📚 Study Hub</h2>
+
 <p>अपना Quiz चुनें</p>
 
 <div class="menu">
@@ -139,15 +190,24 @@ footer{
 </button>
 
 </div>
+
 </div>
+
 
 <div class="card hidden" id="quiz">
 
-<button class="back" onclick="home()">← वापस</button>
+<button class="back" onclick="home()">
+← वापस
+</button>
 
 <div class="top">
+
 <span id="count"></span>
-<span class="timer">⏱️ <span id="time">10:00</span></span>
+
+<span class="timer">
+⏱️ <span id="time">10:00</span>
+</span>
+
 </div>
 
 <div class="progress">
@@ -167,12 +227,14 @@ footer{
 </button>
 
 </div>
+
 </div>
 
 <footer>
 📚 Study Hub<br>
 Learn • Practice • Succeed
 </footer>
+
 
 <script>
 
@@ -281,6 +343,7 @@ const GK=[
 
 ];
 
+
 const WORD=[
 
 ["Abandon",["त्याग देना","सावधान","प्रसिद्ध","आवश्यक"],0],
@@ -388,6 +451,7 @@ const WORD=[
 
 ];
 
+
 let mode='gk';
 let current=0;
 let score=0;
@@ -397,11 +461,16 @@ let timer=null;
 
 const $=id=>document.getElementById(id);
 
+
 function home(){
+
 clearInterval(timer);
+
 $('quiz').classList.add('hidden');
 $('home').classList.remove('hidden');
+
 }
+
 
 function startQuiz(x){
 
@@ -413,14 +482,27 @@ timeLeft=600;
 $('home').classList.add('hidden');
 $('quiz').classList.remove('hidden');
 
-$('question').classList.toggle('hidden',x==='word');
-$('word').classList.toggle('hidden',x!=='word');
+$('question').classList.toggle(
+'hidden',
+x==='word'
+);
+
+$('word').classList.toggle(
+'hidden',
+x!=='word'
+);
 
 clearInterval(timer);
-timer=setInterval(updateTimer,1000);
+
+timer=setInterval(
+updateTimer,
+1000
+);
 
 load();
+
 }
+
 
 function load(){
 
@@ -430,36 +512,87 @@ $('feedback').textContent='';
 $('feedback').className='feedback';
 
 let data=mode==='gk'?GK:WORD;
+
 let q=data[current];
 
 $('count').textContent=
 `प्रश्न ${current+1} / ${data.length}`;
 
 $('bar').style.width=
-`${(current+1)/data.length*100}%`;
+`${((current+1)/data.length)*100}%`;
 
 $('next').textContent=
 current===data.length-1
 ?'परिणाम देखें 🏆'
 :'अगला प्रश्न →';
 
-if(mode==='word')
+
+if(mode==='word'){
+
 $('word').textContent=q[0];
-else
+
+}else{
+
 $('question').textContent=q[0];
+
+}
+
 
 $('options').innerHTML='';
 
-q[1].forEach((t,i)=>{
 
-let b=document.createElement('button');
+/*
+Word Meaning में answers की
+position हर बार random होगी।
+*/
+
+let opts=q[1].map(
+(text,index)=>({
+text:text,
+index:index
+})
+);
+
+
+if(mode==='word'){
+
+for(
+let i=opts.length-1;
+i>0;
+i--
+){
+
+let j=Math.floor(
+Math.random()*(i+1)
+);
+
+[opts[i],opts[j]]=
+[opts[j],opts[i]];
+
+}
+
+}
+
+
+opts.forEach(
+(o,i)=>{
+
+let b=document.createElement(
+'button'
+);
 
 b.className='option';
 
 b.textContent=
-String.fromCharCode(65+i)+'. '+t;
+String.fromCharCode(65+i)
++'. '+o.text;
 
-b.onclick=()=>answer(i);
+b.dataset.originalIndex=
+o.index;
+
+b.onclick=()=>{
+answer(o.index);
+};
 
 $('options').appendChild(b);
 
@@ -467,68 +600,118 @@ $('options').appendChild(b);
 
 }
 
+
 function answer(i){
 
 if(answered)return;
 
 answered=true;
 
-let q=(mode==='gk'?GK:WORD)[current];
+let data=
+mode==='gk'
+?GK
+:WORD;
 
-let bs=[...document.querySelectorAll('.option')];
+let q=data[current];
 
-bs.forEach(b=>b.disabled=true);
+let buttons=[
+...document.querySelectorAll('.option')
+];
+
+buttons.forEach(
+b=>b.disabled=true
+);
+
+
+let selected=
+buttons.find(
+b=>
+Number(b.dataset.originalIndex)===i
+);
+
+
+let correctButton=
+buttons.find(
+b=>
+Number(b.dataset.originalIndex)===q[2]
+);
+
 
 if(i===q[2]){
 
 score++;
 
-bs[i].classList.add('correct');
+selected.classList.add(
+'correct'
+);
 
-bs[i].textContent+='  ✅ सही जवाब';
+selected.textContent+=
+'  ✅ सही जवाब';
 
-$('feedback').textContent='✅ सही जवाब!';
+$('feedback').textContent=
+'✅ सही जवाब!';
 
-$('feedback').className='feedback ok';
+$('feedback').className=
+'feedback ok';
 
 }else{
 
-bs[i].classList.add('wrong');
+selected.classList.add(
+'wrong'
+);
 
-bs[i].textContent+='  ❌ गलत जवाब';
+selected.textContent+=
+'  ❌ गलत जवाब';
 
-bs[q[2]].classList.add('correct');
+correctButton.classList.add(
+'correct'
+);
 
-bs[q[2]].textContent+='  ✅ सही जवाब';
+correctButton.textContent+=
+'  ✅ सही जवाब';
 
 $('feedback').textContent=
 '❌ गलत जवाब! सही उत्तर हरे रंग में है।';
 
-$('feedback').className='feedback bad';
+$('feedback').className=
+'feedback bad';
 
 }
 
 }
+
 
 $('next').onclick=()=>{
 
 if(!answered){
 
-alert('पहले एक उत्तर चुनें।');
+alert(
+'पहले एक उत्तर चुनें।'
+);
+
 return;
 
 }
 
 current++;
 
-let data=mode==='gk'?GK:WORD;
+let data=
+mode==='gk'
+?GK
+:WORD;
 
-if(current<data.length)
+if(current<data.length){
+
 load();
-else
+
+}else{
+
 result();
 
+}
+
 };
+
 
 function result(){
 
@@ -539,7 +722,9 @@ let total=
 
 $('quiz').innerHTML=`
 
-<button class="back" onclick="home()">
+<button
+class="back"
+onclick="location.reload()">
 ← Study Hub
 </button>
 
@@ -554,11 +739,13 @@ ${score} / ${total}
 </div>
 
 <p>
-आपने ${total} में से ${score} प्रश्न सही किए।
+आपने ${total} में से ${score}
+प्रश्न सही किए।
 </p>
 
-<button class="restart"
-onclick="startQuiz('${mode}')">
+<button
+class="restart"
+onclick="location.reload()">
 🔄 फिर से Quiz दें
 </button>
 
@@ -568,20 +755,27 @@ onclick="startQuiz('${mode}')">
 
 }
 
+
 function updateTimer(){
 
-let m=Math.floor(timeLeft/60);
-let s=timeLeft%60;
+let m=
+Math.floor(timeLeft/60);
+
+let s=
+timeLeft%60;
 
 $('time').textContent=
-String(m).padStart(2,'0')+
-':'+
+String(m).padStart(2,'0')
++':'+
 String(s).padStart(2,'0');
+
 
 if(timeLeft<=0){
 
 clearInterval(timer);
+
 result();
+
 return;
 
 }
