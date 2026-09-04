@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Colour Vision | Study Hub Genius Quiz</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f3f6ff;
+  color:#172033;
+}
+
+header{
+  background:#3157d5;
+  color:white;
+  text-align:center;
+  padding:25px 15px;
+}
+
+header h1{
+  margin:0;
+  font-size:30px;
+}
+
+header p{
+  margin:8px 0 0;
+}
+
+.app{
+  max-width:650px;
+  margin:auto;
+  padding:18px 15px;
+}
+
+.card{
+  background:white;
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:18px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+h2{
+  margin-top:0;
+}
+
+.info{
+  line-height:1.6;
+  color:#596579;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border:0;
+  border-radius:11px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.start{
+  background:#3157d5;
+  color:white;
+}
+
+.back{
+  background:#172033;
+  color:white;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+.progress{
+  height:10px;
+  background:#e2e6ef;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.bar{
+  height:100%;
+  width:0%;
+  background:#3157d5;
+  transition:.3s;
+}
+
+.test{
+  text-align:center;
+}
+
+.plate{
+  width:240px;
+  height:240px;
+  margin:25px auto;
+  border-radius:50%;
+  position:relative;
+  overflow:hidden;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  background:
+  radial-gradient(circle at 15% 20%,#6f9e68 0 7%,transparent 8%),
+  radial-gradient(circle at 35% 70%,#e4b060 0 8%,transparent 9%),
+  radial-gradient(circle at 70% 30%,#6a8f62 0 6%,transparent 7%),
+  radial-gradient(circle at 80% 75%,#d36d63 0 9%,transparent 10%),
+  radial-gradient(circle at 50% 45%,#e1a16f 0 8%,transparent 9%),
+  #d98d70;
+
+  box-shadow:
+  inset 0 0 0 8px rgba(255,255,255,.2),
+  0 5px 15px rgba(0,0,0,.12);
+}
+
+.number{
+  position:relative;
+  z-index:2;
+  font-size:80px;
+  font-weight:bold;
+  color:#4c8c62;
+  letter-spacing:5px;
+}
+
+.answers{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.answer{
+  background:white;
+  border:2px solid #dce2ee;
+  color:#172033;
+  margin:0;
+}
+
+.answer.correct{
+  background:#d4edda;
+  border-color:#28a745;
+}
+
+.answer.wrong{
+  background:#f8d7da;
+  border-color:#dc3545;
+}
+
+.answer:disabled{
+  cursor:default;
+}
+
+.feedback{
+  min-height:28px;
+  margin-top:15px;
+  font-weight:bold;
+}
+
+.next{
+  background:#3157d5;
+  color:white;
+}
+
+.result{
+  text-align:center;
+}
+
+.score{
+  font-size:52px;
+  color:#3157d5;
+  font-weight:bold;
+  margin:15px 0;
+}
+
+.hidden{
+  display:none;
+}
+
+.warning{
+  background:#fff3cd;
+  border-left:5px solid #ffc107;
+  padding:12px;
+  border-radius:8px;
+  line-height:1.5;
+}
+
+footer{
+  background:#172033;
+  color:white;
+  text-align:center;
+  padding:22px;
+  margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🎨 Colour Vision</h1>
+  <p>Study Hub Genius Quiz</p>
+</header>
+
+<div class="app">
+
+  <!-- HOME -->
+  <div class="card" id="home">
+
+    <h2>👁️ Colour Vision Test</h2>
+
+    <p class="info">
+      इस test में अलग-अलग colour plates दिखाई जाएंगी।
+      आपको plate में दिखाई देने वाला number चुनना है।
+    </p>
+
+    <div class="warning">
+      ⚠️ यह केवल educational screening test है।
+      यह medical diagnosis नहीं है।
+    </div>
+
+    <button class="start" onclick="startTest()">
+      ▶️ Test शुरू करें
+    </button>
+
+    <button class="back" onclick="goHome()">
+      ← Study Hub पर वापस
+    </button>
+
+  </div>
+
+
+  <!-- TEST -->
+  <div class="card test hidden" id="test">
+
+    <div class="top">
+      <span id="questionCount">
+        Question 1 / 10
+      </span>
+
+      <span>
+        Score: <span id="liveScore">0</span>
+      </span>
+    </div>
+
+    <div class="progress">
+      <div class="bar" id="progressBar"></div>
+    </div>
+
+    <h3>
+      इस plate में कौन-सा number दिख रहा है?
+    </h3>
+
+    <div class="plate">
+      <span class="number" id="plateNumber">
+        12
+      </span>
+    </div>
+
+    <div class="answers" id="answers"></div>
+
+    <div class="feedback" id="feedback"></div>
+
+    <button
+      class="next hidden"
+      id="nextButton"
+      onclick="nextQuestion()">
+      अगला प्रश्न →
+    </button>
+
+  </div>
+
+
+  <!-- RESULT -->
+  <div class="card result hidden" id="result">
+
+    <h2>🎉 Test Complete!</h2>
+
+    <p>आपका Score</p>
+
+    <div class="score" id="finalScore">
+      0 / 10
+    </div>
+
+    <p id="resultMessage"></p>
+
+    <div class="warning">
+      👁️ अगर आपको colours पहचानने में लगातार परेशानी होती है,
+      तो proper eye examination के लिए eye-care professional से
+      सलाह लें।
+    </div>
+
+    <button class="start" onclick="startTest()">
+      🔄 फिर से Test करें
+    </button>
+
+    <button class="back" onclick="goHome()">
+      ← Study Hub पर वापस
+    </button>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Ashish Negi ❤️
+  <br>
+  Study Hub Genius Quiz
+</footer>
+
+
+<script>
+
+const plates = [
+
+  {
+    number:"12",
+    options:["12","8","6","29"],
+    correct:0
+  },
+
+  {
+    number:"8",
+    options:["3","8","6","5"],
+    correct:1
+  },
+
+  {
+    number:"29",
+    options:["29","70","21","12"],
+    correct:0
+  },
+
+  {
+    number:"5",
+    options:["5","2","8","15"],
+    correct:0
+  },
+
+  {
+    number:"74",
+    options:["74","11","41","17"],
+    correct:0
+  },
+
+  {
+    number:"6",
+    options:["6","8","9","5"],
+    correct:0
+  },
+
+  {
+    number:"45",
+    options:["45","15","74","12"],
+    correct:0
+  },
+
+  {
+    number:"3",
+    options:["3","8","5","6"],
+    correct:0
+  },
+
+  {
+    number:"7",
+    options:["7","1","2","9"],
+    correct:0
+  },
+
+  {
+    number:"16",
+    options:["16","18","61","19"],
+    correct:0
+  }
+
+];
+
+
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+
+function startTest(){
+
+  currentQuestion = 0;
+  score = 0;
+
+  document
+    .getElementById("home")
+    .classList.add("hidden");
+
+  document
+    .getElementById("result")
+    .classList.add("hidden");
+
+  document
+    .getElementById("test")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("liveScore")
+    .textContent = "0";
+
+  showQuestion();
+}
+
+
+function showQuestion(){
+
+  answered = false;
+
+  const q = plates[currentQuestion];
+
+  document
+    .getElementById("questionCount")
+    .textContent =
+    `Question ${currentQuestion + 1} / ${plates.length}`;
+
+  document
+    .getElementById("progressBar")
+    .style.width =
+    `${((currentQuestion + 1) / plates.length) * 100}%`;
+
+  document
+    .getElementById("plateNumber")
+    .textContent = q.number;
+
+  document
+    .getElementById("feedback")
+    .textContent = "";
+
+  document
+    .getElementById("nextButton")
+    .classList.add("hidden");
+
+
+  const answers =
+    document.getElementById("answers");
+
+  answers.innerHTML = "";
+
+
+  q.options.forEach((option,index)=>{
+
+    const button =
+      document.createElement("button");
+
+    button.className = "answer";
+
+    button.textContent = option;
+
+    button.onclick = function(){
+
+      checkAnswer(index,button);
+
+    };
+
+    answers.appendChild(button);
+
+  });
+
+}
+
+
+function checkAnswer(index,button){
+
+  if(answered) return;
+
+  answered = true;
+
+  const q = plates[currentQuestion];
+
+  const buttons =
+    document.querySelectorAll(".answer");
+
+  buttons.forEach(btn=>{
+    btn.disabled = true;
+  });
+
+
+  if(index === q.correct){
+
+    score++;
+
+    button.classList.add("correct");
+
+    document
+      .getElementById("feedback")
+      .textContent = "✅ सही जवाब!";
+
+    document
+      .getElementById("feedback")
+      .style.color = "#218838";
+
+  }
+
+  else{
+
+    button.classList.add("wrong");
+
+    buttons[q.correct]
+      .classList.add("correct");
+
+    document
+      .getElementById("feedback")
+      .textContent =
+      "❌ गलत जवाब! सही answer highlight किया गया है।";
+
+    document
+      .getElementById("feedback")
+      .style.color = "#c82333";
+
+  }
+
+
+  document
+    .getElementById("liveScore")
+    .textContent = score;
+
+  document
+    .getElementById("nextButton")
+    .classList.remove("hidden");
+
+}
+
+
+function nextQuestion(){
+
+  currentQuestion++;
+
+  if(currentQuestion >= plates.length){
+
+    finishTest();
+
+  }
+
+  else{
+
+    showQuestion();
+
+  }
+
+}
+
+
+function finishTest(){
+
+  document
+    .getElementById("test")
+    .classList.add("hidden");
+
+  document
+    .getElementById("result")
+    .classList.remove("hidden");
+
+
+  document
+    .getElementById("finalScore")
+    .textContent =
+    `${score} / ${plates.length}`;
+
+
+  let message = "";
+
+  if(score >= 9){
+
+    message =
+      "🎉 बहुत अच्छा! आपने लगभग सभी plates सही पहचानीं।";
+
+  }
+
+  else if(score >= 7){
+
+    message =
+      "👍 अच्छा score! कुछ plates में mistake हुई।";
+
+  }
+
+  else if(score >= 5){
+
+    message =
+      "🙂 कुछ colours/numbers पहचानने में difficulty हुई।";
+
+  }
+
+  else{
+
+    message =
+      "👁️ कई plates में difficulty हुई। Proper colour vision test के लिए eye-care professional से सलाह लें।";
+
+  }
+
+
+  document
+    .getElementById("resultMessage")
+    .textContent = message;
+
+}
+
+
+function goHome(){
+
+  window.location.href = "../";
+
+}
+
+</script>
+
+</body>
+</html>
