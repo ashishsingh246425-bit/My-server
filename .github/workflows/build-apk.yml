@@ -26,7 +26,7 @@ jobs:
         with:
           gradle-version: "8.7"
 
-      - - name: Build AAB
+      -  name: Build AAB
   run: gradle -p android bundleRelease
 
 - name: Upload AAB
