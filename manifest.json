@@ -1,7 +1,7 @@
 {
   "name": "Study Hub Genius Quiz",
-"short_name": "Genius Quiz"
-  "description": "100 Questions GK Quiz by Ashish Negi",
+  "short_name": "Genius Quiz",
+  "description": "100 Questions GK Quiz and Word Meaning Quiz",
   "lang": "hi",
   "dir": "ltr",
   "start_url": "./",
@@ -9,5 +9,13 @@
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#f3f6ff",
-  "theme_color": "#3157d5"
+  "theme_color": "#3157d5",
+  "icons": [
+    {
+      "src": "study_hub_icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
