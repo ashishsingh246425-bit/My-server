@@ -283,7 +283,9 @@ footer{
     <span id="count">
       Question 1 / 30
     </span>
-
+<button class="back" onclick="backToColourVisionHome()">
+  ← Colour Vision पर वापस
+</button>
     <span class="timerBox">
       ⏱️ <span id="timer" class="timer">5</span>s
     </span>
@@ -413,7 +415,15 @@ const questions = [
   {image:"plate28.png",answer:"13",options:["13","18","15","73"]},
   {image:"plate29.png",answer:"37",options:["37","31","27","17"]},
   {image:"plate30.png",answer:"Square",options:["Circle","Triangle","Square","Star"]}
+function backToColourVisionHome(){
 
+  clearInterval(timer);
+
+  document.getElementById("test").classList.add("hidden");
+  document.getElementById("result").classList.add("hidden");
+  document.getElementById("home").classList.remove("hidden");
+
+}
 ];
 
 
