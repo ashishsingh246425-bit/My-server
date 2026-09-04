@@ -1,1 +1,952 @@
-a
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Colour Vision | Study Hub Genius Quiz</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f3f6ff;
+  color:#172033;
+}
+
+header{
+  background:#3157d5;
+  color:white;
+  text-align:center;
+  padding:24px 15px;
+}
+
+header h1{
+  margin:0;
+  font-size:29px;
+}
+
+header p{
+  margin:8px 0 0;
+  font-size:16px;
+}
+
+.app{
+  max-width:650px;
+  margin:auto;
+  padding:18px 15px;
+}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  margin-bottom:18px;
+  box-shadow:0 6px 22px rgba(0,0,0,.09);
+}
+
+.hidden{
+  display:none !important;
+}
+
+.info{
+  line-height:1.6;
+  color:#596579;
+}
+
+.warning{
+  background:#fff3cd;
+  border-left:5px solid #ffc107;
+  padding:13px;
+  border-radius:9px;
+  line-height:1.5;
+  margin:15px 0;
+}
+
+button{
+  width:100%;
+  padding:15px;
+  margin-top:10px;
+  border:0;
+  border-radius:12px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.start,
+.next{
+  background:#3157d5;
+  color:white;
+}
+
+.back{
+  background:#172033;
+  color:white;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+.timer{
+  color:#d63333;
+  font-size:20px;
+}
+
+.timerBox{
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+
+.progress{
+  height:10px;
+  background:#e1e5ee;
+  border-radius:20px;
+  overflow:hidden;
+  margin-bottom:18px;
+}
+
+.bar{
+  height:100%;
+  width:0%;
+  background:#3157d5;
+  transition:.2s;
+}
+
+.test{
+  text-align:center;
+}
+
+.instruction{
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.plateBox{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:18px 0;
+}
+
+.plateImage{
+  width:290px;
+  height:290px;
+  max-width:85vw;
+  object-fit:contain;
+  border-radius:12px;
+  background:white;
+  box-shadow:0 6px 20px rgba(0,0,0,.14);
+}
+
+.answers{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.answer{
+  background:white;
+  border:2px solid #dce2ee;
+  color:#172033;
+  margin:0;
+  min-height:58px;
+}
+
+.answer.correct{
+  background:#d4edda;
+  border-color:#28a745;
+}
+
+.answer.wrong{
+  background:#f8d7da;
+  border-color:#dc3545;
+}
+
+.answer:disabled{
+  opacity:1;
+}
+
+.feedback{
+  min-height:28px;
+  margin:14px 0 4px;
+  font-weight:bold;
+}
+
+.score{
+  text-align:center;
+  font-size:52px;
+  font-weight:900;
+  color:#3157d5;
+  margin:15px 0;
+}
+
+.result{
+  text-align:center;
+}
+
+.result h2{
+  margin-top:5px;
+}
+
+.small{
+  color:#697386;
+  font-size:14px;
+}
+
+footer{
+  background:#172033;
+  color:white;
+  text-align:center;
+  padding:22px;
+  margin-top:20px;
+}
+
+@media(max-width:480px){
+
+  .answers{
+    grid-template-columns:1fr;
+  }
+
+  .plateImage{
+    width:270px;
+    height:270px;
+  }
+
+  header h1{
+    font-size:25px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🎨 Colour Vision</h1>
+  <p>Study Hub Genius Quiz</p>
+</header>
+
+<div class="app">
+
+<!-- HOME -->
+
+<div class="card" id="home">
+
+  <h2>👁️ Colour Vision Challenge</h2>
+
+  <p class="info">
+    इस challenge में आपको अलग-अलग colour vision
+    plates में छिपे numbers पहचानने होंगे।
+  </p>
+
+  <div class="warning">
+    ⚠️ यह केवल educational screening/challenge है।
+    यह medical diagnosis या professional eye examination नहीं है।
+  </div>
+
+  <p>
+    🖼️ <b>30 Real Image Plates</b><br>
+    ⏱️ <b>हर image के लिए सिर्फ 5 seconds</b><br>
+    🎯 <b>हर question में 4 options</b>
+  </p>
+
+  <button class="start" onclick="startTest()">
+    ▶️ Challenge शुरू करें
+  </button>
+
+  <button class="back" onclick="goHome()">
+    ← Study Hub पर वापस
+  </button>
+
+</div>
+
+
+<!-- TEST -->
+
+<div class="card test hidden" id="test">
+
+  <div class="top">
+
+    <span id="count">
+      Question 1 / 30
+    </span>
+
+    <span class="timerBox">
+      ⏱️ <span id="timer" class="timer">5</span>s
+    </span>
+
+  </div>
+
+  <div class="progress">
+    <div class="bar" id="bar"></div>
+  </div>
+
+  <p class="instruction">
+    👁️ इस image में कौन-सा number दिखाई दे रहा है?
+  </p>
+
+  <div class="plateBox">
+    <img
+      id="plateImage"
+      class="plateImage"
+      src=""
+      alt="Colour Vision Plate"
+    >
+  </div>
+
+  <div
+    class="answers"
+    id="answers">
+  </div>
+
+  <div
+    class="feedback"
+    id="feedback">
+  </div>
+
+  <button
+    class="next hidden"
+    id="next"
+    onclick="nextQuestion()">
+    अगला प्रश्न →
+  </button>
+
+</div>
+
+
+<!-- RESULT -->
+
+<div class="card result hidden" id="result">
+
+  <h2>🏆 Challenge Complete!</h2>
+
+  <p>आपका Final Score</p>
+
+  <div class="score" id="finalScore">
+    0 / 30
+  </div>
+
+  <h3 id="resultTitle"></h3>
+
+  <p id="resultText"></p>
+
+  <div class="warning">
+    👁️ यह score केवल इस quiz का result है।
+    इससे colour-vision deficiency का medical diagnosis
+    नहीं किया जा सकता।
+  </div>
+
+  <button
+    class="start"
+    onclick="startTest()">
+    🔄 फिर से Challenge
+  </button>
+
+  <button
+    class="back"
+    onclick="goHome()">
+    ← Study Hub पर वापस
+  </button>
+
+</div>
+
+</div>
+
+
+<footer>
+  © 2026 Ashish Negi ❤️
+  <br>
+  Study Hub Genius Quiz
+</footer>
+
+
+<script>
+
+/* =========================================
+   30 COLOUR VISION IMAGE QUESTIONS
+========================================= */
+
+const questions = [
+
+  {
+    image:"plate01.png",
+    answer:"12",
+    options:["12","8","6","29"]
+  },
+
+  {
+    image:"plate02.png",
+    answer:"8",
+    options:["3","8","6","5"]
+  },
+
+  {
+    image:"plate03.png",
+    answer:"6",
+    options:["6","9","8","5"]
+  },
+
+  {
+    image:"plate04.png",
+    answer:"29",
+    options:["21","29","70","12"]
+  },
+
+  {
+    image:"plate05.png",
+    answer:"74",
+    options:["74","57","12","29"]
+  },
+
+  {
+    image:"plate06.png",
+    answer:"5",
+    options:["8","5","6","3"]
+  },
+
+  {
+    image:"plate07.png",
+    answer:"3",
+    options:["8","3","5","6"]
+  },
+
+  {
+    image:"plate08.png",
+    answer:"15",
+    options:["15","12","75","51"]
+  },
+
+  {
+    image:"plate09.png",
+    answer:"74",
+    options:["47","74","24","14"]
+  },
+
+  {
+    image:"plate10.png",
+    answer:"2",
+    options:["2","8","3","5"]
+  },
+
+  {
+    image:"plate11.png",
+    answer:"7",
+    options:["1","7","9","2"]
+  },
+
+  {
+    image:"plate12.png",
+    answer:"16",
+    options:["61","16","18","19"]
+  },
+
+  {
+    image:"plate13.png",
+    answer:"73",
+    options:["73","78","13","33"]
+  },
+
+  {
+    image:"plate14.png",
+    answer:"16",
+    options:["16","18","15","19"]
+  },
+
+  {
+    image:"plate15.png",
+    answer:"45",
+    options:["45","15","74","42"]
+  },
+
+  {
+    image:"plate16.png",
+    answer:"42",
+    options:["24","42","47","12"]
+  },
+
+  {
+    image:"plate17.png",
+    answer:"30",
+    options:["30","20","80","70"]
+  },
+
+  {
+    image:"plate18.png",
+    answer:"9",
+    options:["6","9","8","5"]
+  },
+
+  {
+    image:"plate19.png",
+    answer:"18",
+    options:["81","18","16","13"]
+  },
+
+  {
+    image:"plate20.png",
+    answer:"4",
+    options:["4","7","1","9"]
+  },
+
+  {
+    image:"plate21.png",
+    answer:"11",
+    options:["11","17","71","15"]
+  },
+
+  {
+    image:"plate22.png",
+    answer:"20",
+    options:["20","29","28","30"]
+  },
+
+  {
+    image:"plate23.png",
+    answer:"26",
+    options:["62","26","28","16"]
+  },
+
+  {
+    image:"plate24.png",
+    answer:"13",
+    options:["13","18","15","73"]
+  },
+
+  {
+    image:"plate25.png",
+    answer:"9",
+    options:["6","9","8","5"]
+  },
+
+  {
+    image:"plate26.png",
+    answer:"31",
+    options:["13","31","37","11"]
+  },
+
+  {
+    image:"plate27.png",
+    answer:"5",
+    options:["5","3","8","6"]
+  },
+
+  {
+    image:"plate28.png",
+    answer:"13",
+    options:["13","18","15","73"]
+  },
+
+  {
+    image:"plate29.png",
+    answer:"37",
+    options:["37","31","27","17"]
+  },
+
+  {
+    image:"plate30.png",
+    answer:"Square",
+    options:["Circle","Triangle","Square","Star"]
+  }
+
+];
+
+
+/* =========================================
+   VARIABLES
+========================================= */
+
+let current = 0;
+let score = 0;
+let answered = false;
+let timer = null;
+let timeLeft = 5;
+let quizQuestions = [];
+
+
+/* =========================================
+   SHUFFLE
+========================================= */
+
+function shuffle(array){
+
+  return array
+    .map(value => ({
+      value:value,
+      sort:Math.random()
+    }))
+    .sort((a,b) => a.sort-b.sort)
+    .map(obj => obj.value);
+
+}
+
+
+/* =========================================
+   START TEST
+========================================= */
+
+function startTest(){
+
+  clearInterval(timer);
+
+  current = 0;
+  score = 0;
+  answered = false;
+
+  quizQuestions = shuffle([...questions]);
+
+  document
+    .getElementById("home")
+    .classList.add("hidden");
+
+  document
+    .getElementById("result")
+    .classList.add("hidden");
+
+  document
+    .getElementById("test")
+    .classList.remove("hidden");
+
+  loadQuestion();
+
+}
+
+
+/* =========================================
+   LOAD QUESTION
+========================================= */
+
+function loadQuestion(){
+
+  clearInterval(timer);
+
+  answered = false;
+
+  const q = quizQuestions[current];
+
+  document.getElementById("count").textContent =
+    "Question " + (current + 1) + " / " + quizQuestions.length;
+
+  document.getElementById("timer").textContent = "5";
+
+  document.getElementById("bar").style.width =
+    ((current) / quizQuestions.length * 100) + "%";
+
+  document.getElementById("plateImage").src =
+    q.image;
+
+  document.getElementById("feedback").textContent = "";
+
+  document
+    .getElementById("next")
+    .classList.add("hidden");
+
+
+  /* OPTIONS */
+
+  const answersBox =
+    document.getElementById("answers");
+
+  answersBox.innerHTML = "";
+
+  const shuffledOptions =
+    shuffle([...q.options]);
+
+
+  shuffledOptions.forEach(option => {
+
+    const button =
+      document.createElement("button");
+
+    button.className = "answer";
+
+    button.textContent = option;
+
+    button.onclick = function(){
+
+      checkAnswer(
+        option,
+        button
+      );
+
+    };
+
+    answersBox.appendChild(button);
+
+  });
+
+
+  /* 5 SECOND TIMER */
+
+  timeLeft = 5;
+
+  document.getElementById("timer").textContent =
+    timeLeft;
+
+
+  timer = setInterval(() => {
+
+    timeLeft--;
+
+    document.getElementById("timer").textContent =
+      timeLeft;
+
+
+    if(timeLeft <= 0){
+
+      clearInterval(timer);
+
+      timeUp();
+
+    }
+
+  },1000);
+
+}
+
+
+/* =========================================
+   CHECK ANSWER
+========================================= */
+
+function checkAnswer(selected, clickedButton){
+
+  if(answered){
+    return;
+  }
+
+  answered = true;
+
+  clearInterval(timer);
+
+  const q = quizQuestions[current];
+
+  const buttons =
+    document.querySelectorAll(".answer");
+
+
+  buttons.forEach(btn => {
+
+    btn.disabled = true;
+
+    if(btn.textContent === q.answer){
+
+      btn.classList.add("correct");
+
+    }
+
+  });
+
+
+  if(selected === q.answer){
+
+    score++;
+
+    document.getElementById("feedback").innerHTML =
+      "✅ सही जवाब!";
+
+  }else{
+
+    clickedButton.classList.add("wrong");
+
+    document.getElementById("feedback").innerHTML =
+      "❌ गलत! सही जवाब: <b>" +
+      q.answer +
+      "</b>";
+
+  }
+
+
+  document
+    .getElementById("next")
+    .classList.remove("hidden");
+
+}
+
+
+/* =========================================
+   TIME UP
+========================================= */
+
+function timeUp(){
+
+  if(answered){
+    return;
+  }
+
+  answered = true;
+
+  const q = quizQuestions[current];
+
+  const buttons =
+    document.querySelectorAll(".answer");
+
+
+  buttons.forEach(btn => {
+
+    btn.disabled = true;
+
+    if(btn.textContent === q.answer){
+
+      btn.classList.add("correct");
+
+    }
+
+  });
+
+
+  document.getElementById("feedback").innerHTML =
+    "⏰ Time Up! सही जवाब: <b>" +
+    q.answer +
+    "</b>";
+
+
+  document
+    .getElementById("next")
+    .classList.remove("hidden");
+
+
+  /* AUTO NEXT AFTER 1 SECOND */
+
+  setTimeout(() => {
+
+    if(answered){
+
+      nextQuestion();
+
+    }
+
+  },1000);
+
+}
+
+
+/* =========================================
+   NEXT QUESTION
+========================================= */
+
+function nextQuestion(){
+
+  clearInterval(timer);
+
+  current++;
+
+  if(current >= quizQuestions.length){
+
+    showResult();
+
+  }else{
+
+    loadQuestion();
+
+  }
+
+}
+
+
+/* =========================================
+   RESULT
+========================================= */
+
+function showResult(){
+
+  clearInterval(timer);
+
+  document
+    .getElementById("test")
+    .classList.add("hidden");
+
+  document
+    .getElementById("result")
+    .classList.remove("hidden");
+
+
+  document.getElementById("finalScore").textContent =
+    score + " / " + quizQuestions.length;
+
+
+  const percentage =
+    (score / quizQuestions.length) * 100;
+
+
+  let title = "";
+  let text = "";
+
+
+  if(percentage >= 90){
+
+    title = "🌟 Excellent!";
+    text =
+      "बहुत बढ़िया! आपने लगभग सभी plates सही पहचानीं।";
+
+  }
+  else if(percentage >= 70){
+
+    title = "🔥 Great Job!";
+    text =
+      "बहुत अच्छा score! आपने काफी plates सही पहचानीं।";
+
+  }
+  else if(percentage >= 50){
+
+    title = "👍 Good Try!";
+    text =
+      "अच्छी कोशिश! कुछ plates दोबारा try कर सकते हो।";
+
+  }
+  else{
+
+    title = "💪 Keep Practicing!";
+    text =
+      "फिर से try करो और plates को ध्यान से देखो।";
+
+  }
+
+
+  document.getElementById("resultTitle").textContent =
+    title;
+
+  document.getElementById("resultText").textContent =
+    text;
+
+}
+
+
+/* =========================================
+   GO HOME
+========================================= */
+
+function goHome(){
+
+  clearInterval(timer);
+
+  document
+    .getElementById("test")
+    .classList.add("hidden");
+
+  document
+    .getElementById("result")
+    .classList.add("hidden");
+
+  document
+    .getElementById("home")
+    .classList.remove("hidden");
+
+}
+
+</script>
+
+</body>
+  </html>
