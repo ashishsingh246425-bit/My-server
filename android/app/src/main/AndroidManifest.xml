@@ -7,7 +7,7 @@
     <application
         android:theme="@style/AppTheme"
         android:label="Study Hub Genius Quiz"
-        android:icon="@drawable/app_icon"
+        android:icon="@drawable/study_hub_icon"
         android:usesCleartextTraffic="false">
 
         <activity
